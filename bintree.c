@@ -3,8 +3,8 @@
 #include <stdio.h>
 
 BinTree NewTree (ElType root, BinTree left_tree, BinTree right_tree)
-/* Menghasilkan sebuah pohon biner dari root, left_tree, dan right_tree, jika alokasi berhasil
-   Menghasilkan pohon kosong (NULL) jika alokasi gagal */
+/* Return a binary tree from root, left_tree, dan right_tree if the allocation succeed
+   Return an empty tree (NULL) if the allocation failed */
 {
     BinTree nodeBaru = (BinTree) malloc(sizeof(BinTree));
     if (nodeBaru!=NULL){
@@ -16,21 +16,16 @@ BinTree NewTree (ElType root, BinTree left_tree, BinTree right_tree)
 }
 
 void CreateTree (ElType root, BinTree left_tree, BinTree right_tree, BinTree *p)
-/* I.S. Sembarang
-   F.S. Menghasilkan sebuah pohon p
-   Menghasilkan sebuah pohon biner p dari akar, l, dan r, jika alokasi
-   berhasil
-   Menghasilkan pohon p yang kosong (NULL) jika alokasi gagal */
+/* I.S. Anything
+   F.S. Created a tree stored in p
+   Create a binary tree p from root, left_tree, dan right_tree, if the allocation succeed
+   Create an empty tree (NULL) if the allocation failed */
 {
     *p=NewTree(root,left_tree,right_tree);
 }
 
 Address newTreeNode(ElType val)
-/* Alokasi sebuah address p, bernilai tidak NULL jika berhasil */
-/* Mengirimkan address hasil alokasi sebuah elemen bernilai val
-   Jika alokasi berhasil, maka address tidak NULL, dan misalnya
-   menghasilkan p, maka p↑.info=val, p↑.left=NULL, p↑.right=NULL
-   Jika alokasi gagal, mengirimkan NULL */
+/* Make new node with val as its content and return the address for newly allocated node */
 {
     Address baru = (Address) malloc(sizeof(TreeNode));
     if(baru!=NULL){
@@ -42,19 +37,18 @@ Address newTreeNode(ElType val)
 }
 
 void deallocTreeNode (Address p)
-/* I.S. p terdefinisi
-   F.S. p dikembalikan ke sistem
-   Melakukan dealokasi/pengembalian address p */
+/* I.S. p is defined
+   F.S. p is deallocated*/
 {
     free(p);
 }
 boolean isTreeEmpty (BinTree p)
-/* Mengirimkan true jika p adalah pohon biner yang kosong */
+/* Return true if p is an empty tree */
 {
     return p==NULL;
 }
 boolean isOneElmt (BinTree p)
-/* Mengirimkan true jika p tidak kosong dan hanya terdiri atas 1 elemen */
+/* Return trus if p in a tree with one element */
 {
     if(isTreeEmpty(p)){
         return false;
@@ -63,8 +57,7 @@ boolean isOneElmt (BinTree p)
     }
 }
 boolean isUnerLeft (BinTree p)
-/* Mengirimkan true jika pohon biner tidak kosong, p adalah pohon unerleft:
-   hanya mempunyai subpohon kiri */
+/* Return true if p only have left child  */
 {
     if(!isTreeEmpty(p)){
         return (LEFT(p)!=NULL) && (RIGHT(p)==NULL);
@@ -73,8 +66,7 @@ boolean isUnerLeft (BinTree p)
     }
 }
 boolean isUnerRight (BinTree p)
-/* Mengirimkan true jika pohon biner tidak kosong, p adalah pohon unerright:
-   hanya mempunyai subpohon kanan */
+/* Return true if p only have right child */
 {
     if(!isTreeEmpty(p)){
         return (RIGHT(p)!=NULL) && (LEFT(p)==NULL);
@@ -83,8 +75,7 @@ boolean isUnerRight (BinTree p)
     }
 }
 boolean isBinary (BinTree p)
-/* Mengirimkan true jika pohon biner tidak kosong, p adalah pohon biner:
-  mempunyai subpohon kiri dan subpohon kanan */
+/* Return true if p have both left and right child */
 {
     if(!isTreeEmpty(p)){
         return (LEFT(p)!=NULL) && (RIGHT(p)!=NULL);
@@ -94,14 +85,13 @@ boolean isBinary (BinTree p)
 }
 /* ****** Display Tree ***** */
 void printPreorder(BinTree p)
-/* I.S. p terdefinisi */
-/* F.S. Semua simpul p sudah dicetak secara preorder: akar, pohon kiri, dan pohon kanan.
-   Setiap pohon ditandai dengan tanda kurung buka dan kurung tutup ().
-   Pohon kosong ditandai dengan ().
-   Tidak ada tambahan karakter apa pun di depan, tengah, atau akhir. */
-/* Contoh:
-   (A()()) adalah pohon dengan 1 elemen dengan akar A
-   (A(B()())(C()())) adalah pohon dengan akar A dan subpohon kiri (B()()) dan subpohon kanan (C()()) */
+/* I.S. p us defined */
+/* F.S. All p's node already visited preorderly : root, left child, dan right child.
+   Each tree started with ( and ended with ).
+   Empty tree is marked with (). */
+/* Example:
+   (A()()) is a tree with one node and its value is A
+   (A(B()())(C()())) is a tree with A as its root, (B()()) as its left child and (C()()) as its right child */
 {
     printf("(");
     if(!isTreeEmpty(p)){
@@ -112,14 +102,13 @@ void printPreorder(BinTree p)
     printf(")");
 }
 void printInorder(BinTree p)
-/* I.S. p terdefinisi */
-/* F.S. Semua simpul p sudah dicetak secara inorder: pohon kiri, akar, dan pohon kanan.
-   Setiap pohon ditandai dengan tanda kurung buka dan kurung tutup ().
-   Pohon kosong ditandai dengan ().
-   Tidak ada tambahan karakter apa pun di depan, tengah, atau akhir. */
-/* Contoh:
-   (()A()) adalah pohon dengan 1 elemen dengan akar A
-   ((()B())A(()C())) adalah pohon dengan akar A dan subpohon kiri (()B()) dan subpohon kanan (()C()) */
+/* I.S. p us defined */
+/* F.S. All p's node already visited inorderly : root, left child, dan right child.
+   Each tree started with ( and ended with ).
+   Empty tree is marked with (). */
+/* Example:
+   (()A()) is a tree with one node and its value is A
+   ((()B())A(()C())) is a tree with A as its root, (()B()) as its left child and (()C()) as its right child */
 {
     printf("(");
     if(!isTreeEmpty(p)){
@@ -130,15 +119,14 @@ void printInorder(BinTree p)
     printf(")");
 }
 void printPostorder(BinTree p)
-/* I.S. p terdefinisi */
-/* F.S. Semua simpul p sudah dicetak secara postorder: pohon kiri, pohon kanan, dan akar.
-   Setiap pohon ditandai dengan tanda kurung buka dan kurung tutup ().
-   Pohon kosong ditandai dengan ().
-   Tidak ada tambahan karakter apa pun di depan, tengah, atau akhir. */
-/* Contoh:
-   (()()A) adalah pohon dengan 1 elemen dengan akar A
-   ((()()B)(()()C)A) adalah pohon dengan akar A dan subpohon kiri (()()B) dan subpohon kanan (()()C) */
-{
+
+/* I.S. p us defined */
+/* F.S. All p's node already visited postorderly : root, left child, dan right child.
+   Each tree started with ( and ended with ).
+   Empty tree is marked with (). */
+/* Example:
+   (()()A) is a tree with one node and its value is A
+   ((()()B)(()()C)A) is a tree with A as its root, (()()B) as its left child and (()()C) as its right child */{
     printf("(");
     if(!isTreeEmpty(p)){
         printPostorder(LEFT(p));
@@ -149,6 +137,8 @@ void printPostorder(BinTree p)
 }
 
 void spasiNKali(int n){
+/*I.S. anything
+F.S. spaces n times is printed on the screen*/
     int i;
     for(i=0;i<n;i++){
         printf(" ");
@@ -165,23 +155,21 @@ void cetakTree(BinTree p, int h, int n){
 }
 
 void printTree(BinTree p, int h)
-/* I.S. p terdefinisi, h adalah jarak indentasi (spasi) */
-/* F.S. Semua simpul p sudah ditulis dengan indentasi (spasi) */
-/* Penulisan akar selalu pada baris baru (diakhiri newline) */
-/* Contoh, jika h = 2:
-1) Pohon preorder: (A()()) akan ditulis sbb:
+/* I.S. p is defined, h is the indentation for the child */
+/* F.S. All p's node is printed in the screen */
+/* example, if h = 2:
+1) preorder tree: (A()()) will be printed as:
 A
-2) Pohon preorder: (A(B()())(C()())) akan ditulis sbb:
+2) preorder tree: (A(B()())(C()())) will be printed as:
 A
   B
   C
-3) Pohon preorder: (A(B(D()())())(C()(E()()))) akan ditulis sbb:
+3) preorder tree: (A(B(D()())())(C()(E()()))) will be printed as:
 A
   B
     D
   C
     E
-Note: Anda boleh membuat fungsi tambahan untuk membuat implementasi fungsi ini jika diperlukan
 */
 {
     if(!isTreeEmpty(p)){
