@@ -47,7 +47,7 @@ void TulisGARIS (GARIS L);
 /* I.S. L is defined */
 /* F.S. L is printed with format "((x1,y1),(x2,y2))"  */
 
-/* *** Kelompok operasi garis *** */
+/* *** Operation between GARIS *** */
 float PanjangGARIS (GARIS L); 
 /* return the length of a GARIS */
 float Gradien (GARIS L); 
@@ -58,7 +58,7 @@ void GeserGARIS (GARIS * L, float deltaX, float deltaY);
 /* I.S. L is defined */
 /* F.S. L is translated deltaX parallel with X axes and deltaY parallel with Y axes */
 
-/* *** Kelompok predikat *** */
+/* *** Predicate *** */
 boolean IsTegakLurus (GARIS L1, GARIS L2);
 /* Return true if two lines are perpendicular*/
 boolean IsSejajar (GARIS L1, GARIS L2);
